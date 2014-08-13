@@ -10,6 +10,7 @@ print ("numbers between 1 and 365 (inclusively).\n")
 people = int(sys.argv[1])
 # number of trails
 trials = int(sys.argv[2])
+n_trials = trials
 
 matches = 0
 nomatches = 0
@@ -52,6 +53,6 @@ else:
     print ("\nPlease enter more trials, to prevent a division by zero!\n")
     sys.exit()
 
-output_json = json.dumps({'num_trials':matches, 'percent_successful_trials':round(result,4), 'expected_successful_trials':round(expected,4), 'percent_error':round(pe,4)})
+output_json = json.dumps({'total_trials':n_trials, 'num_people': people, 'num_successful_trials':matches, 'percent_successful_trials': str(round(result,4)), 'expected_successful_trials':str(round(expected,4)), 'percent_error':str(round(pe,4))})
 print(output_json)
 
