@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 
-import math, random, sys
+import math, random, sys, json
 from decimal import Decimal as dml
 
-print "This will simulate the 'Birthday Problem' by generating XX random"
-print "numbers between 1 and 365 (inclusively).\n"
+print ("This will simulate the 'Birthday Problem' by generating XX random")
+print ("numbers between 1 and 365 (inclusively).\n")
 
-people = int(raw_input("Please enter how many random 'people' you'd like to simulate: "))
-
-trials = int(raw_input("Please enter how many trials you'd like to complete: "))
+# number of people per trial
+people = int(sys.argv[1])
+# number of trails
+trials = int(sys.argv[2])
 
 matches = 0
 nomatches = 0
@@ -48,10 +49,9 @@ expected =  (1 - dml(math.factorial(365)) / ( 365**people * math.factorial(365-p
 if result != 0:
     pe = abs( (expected - dml(result) ) / dml(result)) * 100
 else:
-    print "\nPlease enter more trials, to prevent a division by zero!\n", sys.exit()
+    print ("\nPlease enter more trials, to prevent a division by zero!\n")
+    sys.exit()
 
-print "\n\nNumber of successful trials: ", matches
-print "Percent of successful trials: ",round(result,4)
-print "\nExpected percent of number of successful trials:",round(expected,4)
-print "\nPercent of error:",round(pe,4)
+output_json = json.dumps({'num_trials':matches, 'percent_successful_trials':round(result,4), 'expected_successful_trials':round(expected,4), 'percent_error':round(pe,4)})
+print(output_json)
 
